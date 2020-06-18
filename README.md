@@ -5,15 +5,10 @@
 
 관리자 권한 필요
 
-단축키
-
-재생/일시정지: alt + shift + w\
-
-다음곡: alt + shift + q;
-
-이전곡: alt + shift + e;
-
-음소거: alt + shift + `;
-
-단축키 종료: alt + shift + f1 
+단축키   
+재생/일시정지: alt + shift + w    
+다음곡: alt + shift + q;   
+이전곡: alt + shift + e;    
+음소거: alt + shift + `;   
+단축키 종료: alt + shift + f1    
 
