@@ -16,11 +16,6 @@ while True:
 
 mwin = app.window(title_re=u".*Melon", control_id=0)
 
-#a = pywinauto.findwindows.find_window(title_re=u".*Melon", control_id=0)
-
-
-
-#명령 전달
 
 def play():
     han=mwin.handle
