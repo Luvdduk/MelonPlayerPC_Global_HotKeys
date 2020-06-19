@@ -7,7 +7,7 @@ from pynput import keyboard
 # 멜론 실행시까지 반복
 while True:
     try:
-        app = Application().connect(path= r"C:\Program Files (x86)\Melon Player4\Melon.exe")
+        app = Application().connect(path= r"Melon.exe")
         print('멜론플레이어 감지')
         break
     except pywinauto.application.ProcessNotFoundError:
