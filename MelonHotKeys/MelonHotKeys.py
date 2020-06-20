@@ -1,8 +1,41 @@
-#-*-coding:utf-8
+# -*- coding: utf-8 -*-
 
 from pywinauto.application import Application
 from pywinauto.application import ProcessNotFoundError
 from pynput import keyboard
+from configparser import ConfigParser
+# from PyQt5 import QtCore, QtGui, QtWidgets
+
+
+#config 파일 생성 및 확인
+try:
+    config = ConfigParser()
+    config.read('config.ini')
+    print(config['HotKeys']['play-pause'])
+    print("파일 확인")
+except KeyError:
+    config['HotKeys'] = {
+    'play-pause': '<alt>+<shift>+w',
+    'next':  '<alt>+<shift>+e',
+    'preview': '<alt>+<shift>+q',
+    'mute': '<alt>+<shift>+`',
+    'overlay_toggle':'<alt>+<shift>+<f1>'
+    }
+    with open('./config.ini', 'w') as f:
+        config.write(f)
+    print("config파일 생성")
+
+# 설정값 불러오기
+def load_config():
+    # GlobalHotKey 호출을 위한 전역변수
+    global play_config, next_config, preview_config, mute_config, overlay_config
+    play_config=config['HotKeys']['play-pause']
+    next_config=config['HotKeys']['next']
+    preview_config=config['HotKeys']['preview']
+    mute_config=config['HotKeys']['mute']
+    overlay_config=config['HotKeys']['overlay_toggle']
+
+load_config()
 
 # 멜론 연결
 # 멜론 실행시까지 반복
@@ -16,7 +49,9 @@ while True:
         continue
 mwin = app.window(title_re=u".*Melon", control_id=0)
 
+
 class HotKey: 
+    
 
     def play():
         han=mwin.handle
@@ -60,12 +95,13 @@ class HotKey:
             print('음소거 해제')
             mwin.소리_켜기.click()
     
+    
 
     with keyboard.GlobalHotKeys({
-        '<alt>+<shift>+w': play,
-        '<alt>+<shift>+e': next,
-        '<alt>+<shift>+q': preview,
-        '<alt>+<shift>+`': mute,
-        '<alt>+<shift>+<f1>': exit}) as h:
+        play_config: play,
+        next_config: next,
+        preview_config: preview,
+        mute_config: mute,
+        overlay_config: exit}) as h:
         
         h.join()
