@@ -50,58 +50,55 @@ while True:
 mwin = app.window(title_re=u".*Melon", control_id=0)
 
 
-class HotKey: 
+def play():
+    han=mwin.handle
+    playing=app.window(title_re=u".*Melon", control_id=0,handle=han).재생.exists()
+
+    if playing==True:
+        print("재생")
+        mwin.재생.click()
+    else:
+        print("일시정지")
+        mwin.일시정지.click()
+
+
+def next():
+    print('다음곡')
+    mwin.다음_곡.click()
+
+def preview():
+    print('이전곡')
+    mwin.이전_곡.click()
+
+def exit():
+    quit()
+
+# def v_up():
+#     print('소리 크게')
+#     app.window(title_re=u".*소리 크게.*", handle=134370).click()
+
+# def v_down():
+#     print('소리 작게')
+#     app.window(title_re=u".*소리 작게.*", handle=199352).click()
+
+def mute():
+    han=mwin.handle
+    mutev=app.window(title_re=u".*Melon", control_id=0,handle=han).소리_작게선택_시_음소거.exists()
+
+    if mutev==True:
+        print('음소거')
+        mwin.소리_작게선택_시_음소거.click()
+    else:
+        print('음소거 해제')
+        mwin.소리_켜기.click()
+
+
+
+with keyboard.GlobalHotKeys({
+    play_config: play,
+    next_config: next,
+    preview_config: preview,
+    mute_config: mute,
+    overlay_config: exit}) as h:
     
-
-    def play():
-        han=mwin.handle
-        playing=app.window(title_re=u".*Melon", control_id=0,handle=han).재생.exists()
-
-        if playing==True:
-            print("재생")
-            mwin.재생.click()
-        else:
-            print("일시정지")
-            mwin.일시정지.click()
-
-
-    def next():
-        print('다음곡')
-        mwin.다음_곡.click()
-
-    def preview():
-        print('이전곡')
-        mwin.이전_곡.click()
-
-    def exit():
-        quit()
-
-    '''def v_up():
-        print('소리 크게')
-        app.window(title_re=u".*소리 크게.*", handle=134370).click()
-
-    def v_down():
-        print('소리 작게')
-        app.window(title_re=u".*소리 작게.*", handle=199352).click()'''
-
-    def mute():
-        han=mwin.handle
-        mutev=app.window(title_re=u".*Melon", control_id=0,handle=han).소리_작게선택_시_음소거.exists()
-
-        if mutev==True:
-            print('음소거')
-            mwin.소리_작게선택_시_음소거.click()
-        else:
-            print('음소거 해제')
-            mwin.소리_켜기.click()
-    
-    
-
-    with keyboard.GlobalHotKeys({
-        play_config: play,
-        next_config: next,
-        preview_config: preview,
-        mute_config: mute,
-        overlay_config: exit}) as h:
-        
-        h.join()
+    h.join()
